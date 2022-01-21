@@ -5,3 +5,5 @@ Contains:
 - "OdbcEasyController", a class implementation of the functions.
 
 These codes are done with the intention of getting to know of ODBC.
+
+They are also used in some of my projects.
