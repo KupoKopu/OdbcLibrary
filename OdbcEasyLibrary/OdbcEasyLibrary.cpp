@@ -4,12 +4,6 @@
 
 
 namespace odbc {
-    RETCODE rc;
-    //SQLHANDLE hEnviroment;
-    //SQLHANDLE hConnection;
-    //SQLHSTMT hStatement;
-
-
 
     //params done
     void initialise(SQLHANDLE& hEnvironment, SQLHANDLE& hConnection)
@@ -35,7 +29,7 @@ namespace odbc {
 #define SQL_RETURN_CODE_LEN 1024
     SQLWCHAR retconstring[SQL_RETURN_CODE_LEN];
     //params done
-    void connect(SQLHANDLE& hConnection, SQLWCHAR* conn = (SQLWCHAR*)L"DRIVER={SQL Server};SERVER=tcp:192.168.1.14, 1433;DATABASE=Customer Registry;UID=tester;PWD=tester123;")
+    void connect(SQLHANDLE& hConnection, SQLWCHAR* conn)
     {
         switch (SQLDriverConnect(hConnection,
             NULL,

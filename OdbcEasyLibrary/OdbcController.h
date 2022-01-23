@@ -1,20 +1,22 @@
+#ifndef ODBCCONTROLLER
+#define ODBCCONTROLLER
+
 #include <iostream>
 #include <windows.h>
 #include <sqlext.h>
 #include <sqltypes.h>
 #include <sql.h>
 
-
 class OdbcController
 {
 private:
-	RETCODE m_rc{};
-	SQLHANDLE m_hEnvironment{};
-	SQLHANDLE m_hConnection{};
-	SQLHSTMT m_hStatement{};
+    RETCODE m_rc{};
+    SQLHANDLE m_hEnvironment{};
+    SQLHANDLE m_hConnection{};
+    SQLHSTMT m_hStatement{};
     // Should Handles be pointers or not
 
-    #define SQL_RETURN_CODE_LEN 1024
+#define SQL_RETURN_CODE_LEN 1024
     SQLWCHAR retconstring[SQL_RETURN_CODE_LEN];
 
     void initialise(SQLHANDLE& hEnvironment, SQLHANDLE& hConnection)
@@ -35,8 +37,13 @@ private:
 
     }
 
-    //params done
-    void connect(SQLHANDLE& hConnection, SQLWCHAR* conn = (SQLWCHAR*)L"DRIVER={SQL Server};SERVER=tcp:192.168.1.14, 1433;DATABASE=Customer Registry;UID=tester;PWD=tester123;")
+public:
+    OdbcController()
+    {
+        initialise(m_hEnvironment, m_hConnection);
+    }
+
+    void connect(SQLHANDLE& hConnection, SQLWCHAR* conn)
     {
         switch (SQLDriverConnect(hConnection,
             NULL,
@@ -114,28 +121,24 @@ private:
         m_rc = SQLExecDirect(hStatement, Statement, SQL_NTS);
     }
 
-    //params
     void  freeStatement(SQLHANDLE& hStatement)
     {
         SQLFreeHandle(SQL_HANDLE_STMT, hStatement); // Disconnects statement, for further statements
 
     }
 
-    //params
     void  disconnect(SQLHANDLE& hConnection)
     {
         SQLDisconnect(hConnection); // Disconnect from connected database
 
     }
 
-    //params
     void  freeConnection(SQLHANDLE& hConnection)
     {
         SQLFreeHandle(SQL_HANDLE_DBC, hConnection); // Free driver from current connection string
 
     }
 
-    //params
     void  freeEnv(SQLHANDLE& hEnvironment)
     {
         SQLFreeHandle(SQL_HANDLE_ENV, hEnvironment); // Don't remember
@@ -147,9 +150,7 @@ private:
     {
         m_rc = SQLBindParameter(m_hStatement, column, SQL_PARAM_INPUT, SQL_C_CHAR, SQL_CHAR, input_size, 0, input, 0, nullptr);
     }
-public:
-    OdbcController()
-    {
-        initialise(m_hEnvironment, m_hConnection);
-    }
 };
+
+
+#endif // !ODBCCONTROLLER
