@@ -26,7 +26,6 @@ namespace odbc {
 
 
 
-#define SQL_RETURN_CODE_LEN 1024
     SQLWCHAR retconstring[SQL_RETURN_CODE_LEN];
     //params done
     void connect(SQLHANDLE& hConnection, SQLWCHAR* conn)
