@@ -7,3 +7,4 @@ Contains:
 None of this is meant for professional use, all is done for learning ODBC and general practice.
 
 They are also used in some of my projects.
+
