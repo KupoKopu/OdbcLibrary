@@ -15,7 +15,6 @@ namespace odbc {
     void initialise(SQLHANDLE& hEnvironment, SQLHANDLE& hConnection);
 
 
-    SQLWCHAR retconstring[SQL_RETURN_CODE_LEN];
     void connect(SQLHANDLE& hConnection, SQLWCHAR* conn);
 
     void rcCheck(RETCODE& retcode);
